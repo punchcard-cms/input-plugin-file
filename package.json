@@ -1,0 +1,68 @@
+{
+  "name": "input-plugin-file",
+  "version": "0.0.0",
+  "description": "File input plugin",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run nyc",
+    "pretest": "npm run lint",
+    "ava": "ava",
+    "ava:watch": "ava --watch",
+    "nyc": "nyc --all npm run ava",
+    "lint": "eslint",
+    "coverage": "nyc report --reporter=text-lcov | coveralls",
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post",
+    "reparo": "reparo -b master"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/punchcard-cms/input-plugin-file.git"
+  },
+  "contributors": [
+    "Sam Richard <snugug@us.ibm.com>"
+  ],
+  "license": "Apache-2.0",
+  "dependencies": {},
+  "devDependencies": {
+    "ava": "^0.16.0",
+    "coveralls": "^2.11.9",
+    "eslint": "^3.5.0",
+    "eslint-config-punchcard": "^1.0.1",
+    "ghooks": "^1.3.2",
+    "nyc": "^6.0.0",
+    "punchcard-commit-msg": "^1.0.0",
+    "punchcard-semantic-release": "^2.0.1",
+    "punchcard-shared-tests": "^1.0.2",
+    "reparo": "^1.1.1-0",
+    "semantic-release": "^4.3.5",
+    "tap-diff": "^0.1.1"
+  },
+  "engines": {
+    "node": "^6"
+  },
+  "keywords": [
+    "input-plugin",
+    "punchcard-cms"
+  ],
+  "nyc": {
+    "exclude": [
+      "tests/**/*"
+    ]
+  },
+  "ava": {
+    "files": [
+      "tests/*.js"
+    ],
+    "failFast": false,
+    "tap": false
+  },
+  "config": {
+    "ghooks": {
+      "commit-msg": "punchcard-commit-msg"
+    }
+  },
+  "release": {
+    "analyzeCommits": "punchcard-semantic-release/analyze",
+    "generateNotes": "punchcard-semantic-release/notes"
+  }
+}
