@@ -27,11 +27,11 @@ module.exports = {
       type: 'file',
       label: 'Upload a file',
       settings: {
-        extensions: [
+        types: [
           '*',
         ],
       },
     },
   },
-  html: '<label for="{{file.id}}">{{file.label}}</label><input type="{{file.type}}" id="{{file.id}}" name="{{file.name}}" value="{{file.value}}" placeholder="{{file.placeholder}}" />',
+  html: '<label for="{{file.id}}">{{file.label}}</label><input type="{{file.type}}" id="{{file.id}}" name="{{file.name}}" value="{{file.value}}" {% if settings.types %}{%set comma = joiner() %}accept="{% for type in settings.type %}{{comma()}}{{type}}{% endfor %}{% endif %}" />',
 };
