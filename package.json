@@ -9,7 +9,7 @@
     "ava": "ava",
     "ava:watch": "ava --watch",
     "nyc": "nyc --all npm run ava",
-    "lint": "eslint",
+    "lint": "eslint .",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post",
     "reparo": "reparo -b master"
