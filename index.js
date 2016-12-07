@@ -7,6 +7,7 @@
  * A simple boolean input type
  */
 const validation = require('./lib/validation.js');
+const script = require('./lib/script.js');
 
 /**
  * Single File Input Plugin
@@ -16,7 +17,11 @@ module.exports = {
   name: 'file',
   description: 'A file input type',
   validation: {
-    fileValidation: validation,
+    fileValidation: validation.fileValidation,
+    checkboxValidation: validation.checkboxValidation,
+  },
+  scripts: {
+    fileScript: script,
   },
   inputs: {
     file: {
@@ -32,12 +37,29 @@ module.exports = {
         ],
       },
     },
+    delete: {
+      validation: {
+        function: 'checkboxValidation',
+        on: 'change',
+      },
+      script: {
+        function: 'fileScript',
+        on: 'change',
+      },
+      type: 'checkbox',
+      label: 'Delete file',
+      options: [
+        { label: 'Delete file',
+          value: 'true',
+        },
+      ],
+      settings: {
+        classes: {
+          hide: 'file--uploaded',
+        },
+      },
+    },
   },
-  /* nath: urhere:
-  1. finish checkbox-value into punchcard for deleting file
-  2. add javascript for hide/show of input + check/uncheck of checkbox (which is hidden)
-  3. should just accept new file uploaded as delete of old
-  */
   html: `<label for="{{file.id}}">{{file.label}}</label>
     {% set classes = '' %}
     {% set filepath = '/files' %}
@@ -47,22 +69,24 @@ module.exports = {
     {% endif %}
 
     {% if file.value %}
-      {% set classes = 'file--uploaded' %}
-      {{file.value | dump}}
+      {% set classes = delete.settings.classes.hide %}
 
-      {% if file.value %}
-        {# regex: if file type is image #}
-        {% set imgregex = r/image.*/g %}
+      {# regex: if file type is image #}
+      {% set imgregex = r/image.*/g %}
 
-        <a href="{{filepath}}{{file.value.relative}}">
-          {% if imgregex.test(file.value.type) %}
-            <img src="{{filepath}}{{file.value.relative}}">
-          {% else %}
-            {{file.value.relative.substring(file.value.relative.lastIndexOf('/') + 1)}}
-          {% endif %}
-        </a>
-        <label for="{{file.id}--delete">Delete file <input type="checkbox" id="{{file.id}}--delete"></label>
-      {% endif %}
+      <a href="{{filepath}}{{file.value.relative}}">
+        {% if imgregex.test(file.value.type) %}
+          <img src="{{filepath}}{{file.value.relative}}">
+        {% else %}
+          {{file.value.relative.substring(file.value.relative.lastIndexOf('/') + 1)}}
+        {% endif %}
+      </a>
+      <div class="file--delete">
+        {% for option in delete.options %}
+          <input type="{{delete.type}}" name="{{delete.name}}" id="{{delete.id}}--{{loop.index}}" value="{{option.value}}" {% if delete.value %}{% if option.value in delete.value %}checked{% endif %}{% endif %}>
+          <label for="{{delete.id}}--{{loop.index}}">{{option.label}}</label>
+        {% endfor %}
+      </div>
     {% endif %}
     <div class="{{classes}}">
       <input type="{{file.type}}" id="{{file.id}}" name="{{file.name}}" value="{{file.value}}" {% if settings.types %}{%set comma = joiner() %}accept="{% for type in settings.type %}{{comma()}}{{type}}{% endfor %}{% endif %}" />

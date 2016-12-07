@@ -27,7 +27,7 @@ test('Empty Input', t => {
     },
   };
 
-  t.true(validation(input, settings), 'Empty input returns true');
+  t.true(validation.fileValidation(input, settings), 'Empty input returns true');
 });
 
 test('Valid Input - All Accepted', t => {
@@ -56,7 +56,7 @@ test('Valid Input - All Accepted', t => {
     },
   };
 
-  t.true(validation(input, settings), 'Valid input returns true');
+  t.true(validation.fileValidation(input, settings), 'Valid input returns true');
 });
 
 test('Valid Input - Single Type Accepted', t => {
@@ -85,7 +85,7 @@ test('Valid Input - Single Type Accepted', t => {
     },
   };
 
-  t.true(validation(input, settings), 'Valid input returns true');
+  t.true(validation.fileValidation(input, settings), 'Valid input returns true');
 });
 
 test('Valid Input - Multiple Types Accepted', t => {
@@ -116,7 +116,7 @@ test('Valid Input - Multiple Types Accepted', t => {
     },
   };
 
-  t.true(validation(input, settings), 'Valid input returns true');
+  t.true(validation.fileValidation(input, settings), 'Valid input returns true');
 });
 
 test('Invalid Input - Single Types Accepted', t => {
@@ -145,7 +145,7 @@ test('Invalid Input - Single Types Accepted', t => {
     },
   };
 
-  t.is(validation(input, settings), 'Invalid extension \'.png\'. Valid extensions are \'.svg\'', 'Invalid input returns with string');
+  t.is(validation.fileValidation(input, settings), 'Invalid extension \'.png\'. Valid extensions are \'.svg\'', 'Invalid input returns with string');
 });
 
 test('Invalid Input - Multiple Types Accepted', t => {
@@ -176,5 +176,5 @@ test('Invalid Input - Multiple Types Accepted', t => {
     },
   };
 
-  t.is(validation(input, settings), 'Invalid extension \'.png\'. Valid extensions are \'.svg, .jpeg\'', 'Invalid input returns with string');
+  t.is(validation.fileValidation(input, settings), 'Invalid extension \'.png\'. Valid extensions are \'.svg, .jpeg\'', 'Invalid input returns with string');
 });
