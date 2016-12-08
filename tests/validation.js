@@ -1,6 +1,35 @@
 import test from 'ava';
 import validation from '../lib/validation';
 
+test('Empty Input - checkboxValidation', t => {
+  const input = {
+    target: {
+      name: 'file',
+      value: '',
+    },
+    all: {
+      file: '',
+    },
+  };
+
+  const settings = {
+    target: {
+      types: [
+        '*',
+      ],
+    },
+    all: {
+      file: {
+        types: [
+          '*',
+        ],
+      },
+    },
+  };
+
+  t.true(validation.checkboxValidation(input, settings), 'Empty input returns true');
+});
+
 test('Empty Input', t => {
   const input = {
     target: {
