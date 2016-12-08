@@ -45,6 +45,7 @@
   ],
   "nyc": {
     "exclude": [
+      "lib/script.js",
       "tests/**/*"
     ]
   },
