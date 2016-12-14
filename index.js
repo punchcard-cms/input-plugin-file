@@ -53,43 +53,32 @@ module.exports = {
           value: 'true',
         },
       ],
-      settings: {
-        classes: {
-          hide: 'file--uploaded',
-        },
-      },
     },
   },
   html: `<label for="{{file.id}}">{{file.label}}</label>
-    {% set classes = '' %}
-    {% set filepath = '/files' %}
-
-    {% if storage.public %}
-      {% set filepath = storage.public %}
-    {% endif %}
+  {{file|dump}}
+    <div class="field--upload">
+      <input type="{{file.type}}" id="{{file.id}}" name="{{file.name}}" value="{{file.value}}" {% if settings.types %}{%set comma = joiner() %}accept="{% for type in settings.type %}{{comma()}}{{type}}{% endfor %}{% endif %}" />
+    </div>
 
     {% if file.value %}
-      {% set classes = delete.settings.classes.hide %}
-
       {# regex: if file type is image #}
       {% set imgregex = r/image.*/g %}
 
-      <a href="{{filepath}}{{file.value.relative}}">
-        {% if imgregex.test(file.value.type) %}
-          <img src="{{filepath}}{{file.value.relative}}">
-        {% else %}
-          {{file.value.relative.substring(file.value.relative.lastIndexOf('/') + 1)}}
-        {% endif %}
-      </a>
       <div class="file--delete">
         {% for option in delete.options %}
           <input type="{{delete.type}}" name="{{delete.name}}" id="{{delete.id}}--{{loop.index}}" value="{{option.value}}" {% if delete.value %}{% if option.value in delete.value %}checked{% endif %}{% endif %}>
           <label for="{{delete.id}}--{{loop.index}}">{{option.label}}</label>
         {% endfor %}
       </div>
+
+      <a href="{{file.value.absolute}}" class="file--link">
+        {% if imgregex.test(file.value.type) %}
+          <img src="{{file.value.absolute}}" class="file--image">
+        {% else %}
+          <span class="file--name">{{file.value.original}}</span>
+        {% endif %}
+      </a>
     {% endif %}
-    <div class="{{classes}}">
-      <input type="{{file.type}}" id="{{file.id}}" name="{{file.name}}" value="{{file.value}}" {% if settings.types %}{%set comma = joiner() %}accept="{% for type in settings.type %}{{comma()}}{{type}}{% endfor %}{% endif %}" />
-    </div>
     `,
 };
