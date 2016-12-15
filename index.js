@@ -56,7 +56,6 @@ module.exports = {
     },
   },
   html: `<label for="{{file.id}}">{{file.label}}</label>
-  {{file|dump}}
     <div class="field--upload">
       <input type="{{file.type}}" id="{{file.id}}" name="{{file.name}}" value="{{file.value}}" {% if settings.types %}{%set comma = joiner() %}accept="{% for type in settings.type %}{{comma()}}{{type}}{% endfor %}{% endif %}" />
     </div>
