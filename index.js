@@ -61,23 +61,27 @@ module.exports = {
     </div>
 
     {% if file.value %}
-      {# regex: if file type is image #}
-      {% set imgregex = r/image.*/g %}
-
-      <div class="file--delete">
-        {% for option in delete.options %}
-          <input type="{{delete.type}}" name="{{delete.name}}" id="{{delete.id}}--{{loop.index}}" value="{{option.value}}" {% if delete.value %}{% if option.value in delete.value %}checked{% endif %}{% endif %}>
-          <label for="{{delete.id}}--{{loop.index}}">{{option.label}}</label>
-        {% endfor %}
-      </div>
-
-      <a href="{{file.value.absolute}}" class="file--link">
-        {% if imgregex.test(file.value.type) %}
-          <img src="{{file.value.absolute}}" class="file--image" title="file.value.original">
-        {% else %}
-          {{file.value.original}}
-        {% endif %}
-      </a>
+      {% set nofile = '' %}
+    {% else %}
+      {% set nofile = 'display: none;' %}
     {% endif %}
+
+    {# regex: if file type is image #}
+    {% set imgregex = r/image.*/g %}
+
+    <div class="file--delete" style="{{nofile}}">
+      {% for option in delete.options %}
+        <input type="{{delete.type}}" name="{{delete.name}}" id="{{delete.id}}--{{loop.index}}" value="{{option.value}}" {% if delete.value %}{% if option.value in delete.value %}checked{% endif %}{% endif %}>
+        <label for="{{delete.id}}--{{loop.index}}">{{option.label}}</label>
+      {% endfor %}
+    </div>
+
+    <a href="{{file.value.absolute}}" class="file--link" style="{{nofile}}">
+      {% if imgregex.test(file.value.type) %}
+        <img src="{{file.value.absolute}}" class="file--image" title="file.value.original">
+      {% else %}
+        {{file.value.original}}
+      {% endif %}
+    </a>
     `,
 };
