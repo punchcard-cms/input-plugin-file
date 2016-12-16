@@ -56,7 +56,7 @@ module.exports = {
     },
   },
   html: `<div class="file">
-    <label for="{{file.id}}">{{file.label}}</label>
+    <label for="{{file.id}}" class="file--upload-label">{{file.label}}</label>
     <input type="{{file.type}}" id="{{file.id}}" name="{{file.name}}" value="{{file.value}}" class="file--upload" {% if settings.types %}{%set comma = joiner() %}accept="{% for type in settings.type %}{{comma()}}{{type}}{% endfor %}{% endif %}" />
 
     {% if file.value %}
@@ -69,8 +69,8 @@ module.exports = {
     {% set imgregex = r/image.*/g %}
 
     {% for option in delete.options %}
-      <label for="{{delete.id}}--{{loop.index}}" class="file--delete" style="{{nofile}}">
-        <input type="{{delete.type}}" name="{{delete.name}}" id="{{delete.id}}--{{loop.index}}" value="{{option.value}}" {% if delete.value %}{% if option.value in delete.value %}checked{% endif %}{% endif %}>
+      <label for="{{delete.id}}--{{loop.index}}" class="file--delete-label" style="{{nofile}}">
+        <input type="{{delete.type}}" name="{{delete.name}}" id="{{delete.id}}--{{loop.index}}" class="file--delete"  value="{{option.value}}" {% if delete.value %}{% if option.value in delete.value %}checked{% endif %}{% endif %}>
         {{option.label}}
       </label>
     {% endfor %}
