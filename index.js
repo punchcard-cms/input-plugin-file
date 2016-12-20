@@ -75,9 +75,9 @@ module.exports = {
       </label>
     {% endfor %}
 
-    <a href="{{file.value.absolute}}" class="file--link" style="{{nofile}}">
+    <a href="{{file.value.path}}" class="file--link" style="{{nofile}}">
       {% if imgregex.test(file.value.type) %}
-        <img src="{{file.value.absolute}}" class="file--image" title="file.value.original">
+        <img src="{{file.value.path}}" class="file--image" title="file.value.original">
       {% else %}
         {{file.value.original}}
       {% endif %}
