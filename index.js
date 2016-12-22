@@ -29,6 +29,10 @@ module.exports = {
         function: 'fileValidation',
         on: 'change',
       },
+      script: {
+        function: 'fileScript',
+        on: 'change',
+      },
       type: 'file',
       label: 'Upload a file',
       settings: {
