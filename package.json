@@ -34,7 +34,7 @@
     "punchcard-semantic-release": "^2.0.1",
     "punchcard-shared-tests": "^1.2.1",
     "reparo": "^1.1.1-0",
-    "semantic-release": "^6.3.2"
+    "semantic-release": "^15.13.24"
   },
   "engines": {
     "node": "^6"
